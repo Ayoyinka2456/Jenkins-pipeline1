@@ -4,33 +4,39 @@ pipeline {
     }
     tools {
         maven 'Maven'
+        jdk 'Java11'
     }
     stages {
         stage('Checkout') {
             steps {
                 git 'https://github.com/Ayoyinka2456/Jenkins-pipeline1.git'
+                // stash(name: 'source_code', includes: '**/*')
             }
         }
+
         stage('Build') {
             steps {
                 sh 'mvn clean install'
             }
         }
+
         stage('Test') {
             steps {
                 sh 'mvn test'
-                sh 'ls && pwd'
+                stash (name: 'packaged_code', includes: 'target/*.war')
             }
         }
+
         stage('Deploy to Tomcat') {
             agent {
                 label 'node2_tomcat'
             }
             steps {
-                sh 'ls && pwd'
-                sh 'sudo cp target/*.war ~/apache*/webapps/'
-                sh 'sudo ~/apache*/bin/shutdown.sh && sudo ~/apache*/bin/startup.sh'
+                unstash 'packaged_code'
+                sh "sudo cp target/*.war ~/apache*/webapps/"
+                sh "sudo ~/apache*/bin/shutdown.sh && sudo ~/apache*/bin/startup.sh"
             }
         }
+
     }
 }
