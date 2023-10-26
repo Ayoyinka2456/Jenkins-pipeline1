@@ -19,6 +19,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn test'
+                sh 'ls && pwd'
             }
         }
         stage('Deploy to Tomcat') {
@@ -26,6 +27,7 @@ pipeline {
                 label 'node2_tomcat'
             }
             steps {
+                sh 'ls && pwd'
                 sh 'sudo cp target/*.war ~/apache*/webapps/'
                 sh 'sudo ~/apache*/bin/shutdown.sh && sudo ~/apache*/bin/startup.sh'
             }
