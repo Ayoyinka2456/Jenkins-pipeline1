@@ -20,6 +20,10 @@ public class Calculator extends HttpServlet
 		
 		return first*second;
 	}
+	public long divFucn(long first, long second){
+		
+		return first/second;
+	}
 	
 	
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
