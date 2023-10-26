@@ -49,6 +49,10 @@ public class Calculator extends HttpServlet
         {
             out.println("<h1>Multiplication</h1>"+mulFucn(a1, a2));
         }
+	if(request.getParameter("r4")!=null)
+        {
+            out.println("<h1>Division</h1>"+divFucn(a1, a2));
+        }
         RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");  
         rd.include(request, response);  
         }
