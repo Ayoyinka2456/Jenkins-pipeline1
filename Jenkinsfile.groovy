@@ -10,7 +10,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 git 'https://github.com/Ayoyinka2456/Jenkins-pipeline1.git'
-                // stash(name: 'source_code', includes: '**/*')
             }
         }
 
@@ -23,7 +22,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn test'
-                stash (name: 'packaged_code', includes: 'target/*.war')
+                stash(name: 'packaged_code', includes: 'target/*.war')
             }
         }
 
@@ -37,6 +36,19 @@ pipeline {
                 sh "sudo ~/apache*/bin/shutdown.sh && sudo ~/apache*/bin/startup.sh"
             }
         }
-
     }
-}
+         post{
+            // success {
+            //     emailext body: 'Your Jenkins pipeline was successful', subject: 'BUILD SUCCESS'
+            // }
+            // failure {
+            //     emailext body: 'Your Jenkins pipeline failed', subject: 'BUILD FAILED', to: 'kolawoleayoyinka.ka@gmail.com'
+            // }
+            // emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+                always {
+                    emailext body: 'Check console output at $BUILD_URL to view the results.', 
+                    subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', 
+                    to: 'eas.adeyemi@gmail.com'
+                }
+        }     
+    }
