@@ -22,7 +22,7 @@ public class Calculator extends HttpServlet
 	}
 	public long divFucn(long first, long second){
 		
-		return first/second;
+		return first / second;
 	}
 	
 	
