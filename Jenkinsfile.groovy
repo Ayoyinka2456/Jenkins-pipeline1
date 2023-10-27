@@ -32,7 +32,7 @@ pipeline {
             }
             steps {
                 unstash 'packaged_code'
-                sh "sudo cp target/*.war ~/apache*/webapps/"
+                sh "sudo mv target/*.war ~/apache*/webapps/"
                 sh "sudo ~/apache*/bin/shutdown.sh && sudo ~/apache*/bin/startup.sh"
             }
         }
