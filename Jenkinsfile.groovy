@@ -44,7 +44,7 @@ pipeline {
                 def smiley = '😄'
                 def what_reaction = null
 
-                if (BUILD_STATUS == "Successful") {
+                if ($BUILD_STATUS == "Successful") {
                     what_reaction = smiley
                 } else {
                     what_reaction = frowny
