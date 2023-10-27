@@ -51,7 +51,7 @@ public class Calculator extends HttpServlet
         }
 	if(request.getParameter("r4")!=null)
         {
-            out.println("<h1>Division</h1>"+divFucn(a1, a2));
+            out.println("<h5>Division</h5>"+divFucn(a1, a2));
         }
         RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");  
         rd.include(request, response);  
