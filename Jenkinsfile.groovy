@@ -37,22 +37,23 @@ pipeline {
             }
         }
     }
-        post{
-            always {
-                script {
-                    def frowny = '😞'
-                    def smiley = '😄'
-                    def what_reaction = null
-                    if [[ $BUILD_STATUS == "Successful" ]]; then
-                        what_reaction=$smiley
-                    else
-                        what_reaction=$frowny
-                    fi
+    post {
+        always {
+            script {
+                def frowny = '😞'
+                def smiley = '😄'
+                def what_reaction = null
 
-                    emailext body: 'Check console output at $BUILD_URL to view the results.', 
-                    subject: '$what_reaction $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', 
-                    to: 'eas.adeyemi@gmail.com'
+                if (BUILD_STATUS == "Successful") {
+                    what_reaction = smiley
+                } else {
+                    what_reaction = frowny
                 }
+
+                emailext body: "Check console output at $BUILD_URL to view the results.",
+                    subject: "$what_reaction $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!",
+                    to: 'eas.adeyemi@gmail.com'
             }
-        }     
+        }
     }
+}
