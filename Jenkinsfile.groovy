@@ -44,16 +44,17 @@ pipeline {
                 def smiley = '😄'
                 def what_reaction = null
 
-                if ($BUILD_STATUS == "Successful") {
+                if (currentBuild.resultIsBetterOrEqualTo('SUCCESS')) {
                     what_reaction = smiley
                 } else {
                     what_reaction = frowny
                 }
 
                 emailext body: "Check console output at $BUILD_URL to view the results.",
-                    subject: "$what_reaction $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!",
+                    subject: what_reaction + " $PROJECT_NAME - Build # $BUILD_NUMBER - " + currentBuild.result,
                     to: 'eas.adeyemi@gmail.com'
             }
         }
     }
+
 }
