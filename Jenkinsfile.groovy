@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Deploy to Tomcat') {
             agent {
-                label 'node2.1_Tomcat'
+                label 'node2_tomcat'
             }
             steps {
                 unstash 'packaged_code'
